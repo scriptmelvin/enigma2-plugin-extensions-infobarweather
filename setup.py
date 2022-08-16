@@ -2,7 +2,7 @@ from distutils.core import setup
 import setup_translate
 
 
-setup(name='enigma2-plugin-systemplugins-extrafancontrol',
+setup(name='enigma2-plugin-systemplugins-infobarweather',
 		version='0.6',
 		author='scriptmelvin',
 		author_email='',
