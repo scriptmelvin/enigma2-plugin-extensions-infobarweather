@@ -11,5 +11,6 @@ setup(name='enigma2-plugin-extensions-infobarweather',
 		packages=[pkg],
 		package_data={pkg: ['*.png', '*/*.png', '*/*/*.png', 'locale/*/LC_MESSAGES/*.mo']},
 		description='Show current weather in infobar',
-		cmdclass=setup_translate.cmdclass,
+		license='GPLv2',
+		cmdclass=setup_translate.cmdclass
 	)
