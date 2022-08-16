@@ -1,0 +1,8 @@
+Package: enigma2-plugin-extensions-infobarweather
+Version: 0.6
+Architecture: all
+Maintainer: scriptmelvin
+License: GPLv2
+Description: Show current weather in infobar
+Priority: optional
+Homepage: https://github.com/scriptmelvin/enigma2-infobarweather

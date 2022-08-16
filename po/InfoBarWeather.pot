@@ -1,0 +1,82 @@
+# Copyright (C) 2022 scriptmelvin
+# This file is distributed under the same license as the InfoBarWeather package.
+# FIRST AUTHOR scriptmelvin, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: InfoBarWeather\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-10 21:53+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: scriptmelvin\n"
+"Language-Team: scriptmelvin\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Press OK"
+msgstr ""
+
+msgid "BFT"
+msgstr ""
+
+msgid "m/s"
+msgstr ""
+
+msgid "km/h"
+msgstr ""
+
+msgid "Please configure a location in plugin settings"
+msgstr ""
+
+msgid "Select location"
+msgstr ""
+
+msgid "Could not parse location data."
+msgstr ""
+
+msgid "State/province"
+msgstr ""
+
+msgid "Country"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "InfoBarWeather setup"
+msgstr ""
+
+msgid "Enabled"
+msgstr ""
+
+msgid "Location"
+msgstr ""
+
+msgid ""
+"Press OK to open location search. Note that the rain widget only works for "
+"The Netherlands and Belgium."
+msgstr ""
+
+msgid "Wind speed unit"
+msgstr ""
+
+msgid "Display wind speed as BFT, m/s or km/h."
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr ""
+
+msgid "Could not download location data."
+msgstr ""
+
+msgid "Show current weather in infobar"
+msgstr ""

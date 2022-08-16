@@ -1,0 +1,84 @@
+# Copyright (C) 2022 scriptmelvin
+# This file is distributed under the same license as the InfoBarWeather package.
+# FIRST AUTHOR scriptmelvin, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: InfoBarWeather\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-10 21:53+0200\n"
+"PO-Revision-Date: 2022-08-16 14:23+0200\n"
+"Last-Translator: scriptmelvin\n"
+"Language-Team: scriptmelvin\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Press OK"
+msgstr "Drücke OK"
+
+msgid "BFT"
+msgstr "BFT"
+
+msgid "m/s"
+msgstr "m/s"
+
+msgid "km/h"
+msgstr "km/h"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Bitte konfigurieren Sie einen Ort in den Plugin-Einstellungen"
+
+msgid "Select location"
+msgstr "Ort auswählen"
+
+msgid "Could not parse location data."
+msgstr "Ortdaten konnten nicht geparst werden"
+
+msgid "State/province"
+msgstr "Staat/Provinz"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Select"
+msgstr "Auswählen"
+
+msgid "InfoBarWeather setup"
+msgstr "InfoBarWeather Einstellungen"
+
+msgid "Enabled"
+msgstr "Aktiviert"
+
+msgid "Location"
+msgstr "Ort"
+
+msgid ""
+"Press OK to open location search. Note that the rain widget only works for "
+"The Netherlands and Belgium."
+msgstr ""
+"Drücke OK um die Ortsuche zu öffnen. Beachten Sie, dass das Regen-Widget nur "
+"für die Niederlande und Belgien funktioniert."
+
+msgid "Wind speed unit"
+msgstr "Windgeschwindigkeitseinheit"
+
+msgid "Display wind speed as BFT, m/s or km/h."
+msgstr "Windgeschwindigkeit anzeigen als BFT, m/s or km/h."
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr "Geben Sie (Teil des) Orts ein, nach dem gesucht werden soll (z.B. \"Amsterdam\" or \"Ams\"):"
+
+msgid "Could not download location data."
+msgstr "Ortdaten konnten nicht heruntergeladen werden."
+
+msgid "Show current weather in infobar"
+msgstr "Aktuelles Wetter anzeigen in Infobar"

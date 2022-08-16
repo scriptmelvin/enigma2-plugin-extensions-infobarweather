@@ -1,0 +1,84 @@
+# Copyright (C) 2022 scriptmelvin
+# This file is distributed under the same license as the InfoBarWeather package.
+# FIRST AUTHOR scriptmelvin, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: InfoBarWeather\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-10 21:53+0200\n"
+"PO-Revision-Date: 2022-08-16 14:24+0200\n"
+"Last-Translator: scriptmelvin\n"
+"Language-Team: scriptmelvin\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Press OK"
+msgstr "Druk op OK"
+
+msgid "BFT"
+msgstr "BFT"
+
+msgid "m/s"
+msgstr "m/s"
+
+msgid "km/h"
+msgstr "km/h"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Configureer AUB een locatie in plugin instellingen"
+
+msgid "Select location"
+msgstr "Selecteer locatie"
+
+msgid "Could not parse location data."
+msgstr "Kon locatiedata niet ontleden."
+
+msgid "State/province"
+msgstr "Staat/provincie"
+
+msgid "Country"
+msgstr "Land"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Select"
+msgstr "Selecteer"
+
+msgid "InfoBarWeather setup"
+msgstr "InfoBarWeather instellingen"
+
+msgid "Enabled"
+msgstr "Ingeschakeld"
+
+msgid "Location"
+msgstr "Locatie"
+
+msgid ""
+"Press OK to open location search. Note that the rain widget only works for "
+"The Netherlands and Belgium."
+msgstr ""
+"Druk OK om locatie zoeken te openen. Opmerking: het regenwidget werkt alleen voor "
+"Netherland and België."
+
+msgid "Wind speed unit"
+msgstr "Windsnelheidseenheid"
+
+msgid "Display wind speed as BFT, m/s or km/h."
+msgstr "Toon windsnelheid als BFT, m/s or km/h."
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr "Vul (een deel van) de te zoeken locatie in (bijv. \"Amsterdam\" of \"Ams\"):"
+
+msgid "Could not download location data."
+msgstr "Kon locatiedata niet downloaden"
+
+msgid "Show current weather in infobar"
+msgstr "Toon huidig weer in infobar"

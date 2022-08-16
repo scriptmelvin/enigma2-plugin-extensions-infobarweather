@@ -1,0 +1,16 @@
+<default>
+	<prerequisites>
+		<tag type="System" />
+	</prerequisites>
+	<info>
+		<author>scriptmelvin</author>
+		<name>InfoBarWeather</name>
+		<packagename>enigma2-plugin-extensions-infobarweather</packagename>
+		<shortdescription>Show current weather in infobar</shortdescription>
+		<description>Show current weather in infobar.</description>
+	</info>
+
+	<files type="package"> <!-- without version, without .ipk -->
+		<file type="package" name="enigma2-plugin-extensions-infobarweather" />
+	</files>
+</default>
