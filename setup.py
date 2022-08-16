@@ -2,13 +2,14 @@ from distutils.core import setup
 import setup_translate
 
 
-setup(name='enigma2-plugin-systemplugins-infobarweather',
+pkg='Extensions.InfoBarWeather'
+setup(name='enigma2-plugin-extensions-infobarweather',
 		version='0.6',
 		author='scriptmelvin',
 		author_email='',
-		package_dir={'Extensions.infobarweather': 'src'},
-		packages=['Extensions.infobarweather'],
-		package_data={'Extensions-infobarweather': ['infobarweather']},
-		description='InfoBarWeather - Infobar weather plugin',
+		package_dir={pkg: 'plugin'},
+		packages=[pkg],
+		package_data={pkg: ['*.png', '*/*.png', '*/*/*.png', 'locale/*/LC_MESSAGES/*.mo']},
+		description='Show current weather in infobar',
 		cmdclass=setup_translate.cmdclass,
 	)
