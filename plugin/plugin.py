@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-# InfoBarWheather by scriptmelvin
+# InfoBarWeather by scriptmelvin
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
