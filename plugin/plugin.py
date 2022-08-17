@@ -593,6 +593,8 @@ class SelectLocationScreen(Screen):
 
 	def keyOk(self):
 		current = self["locationList"].getCurrent()
+		if current is None:
+			return
 		locationid = current[0]
 		if settings.locationid.value != locationid:
 			country = current[1][7]
