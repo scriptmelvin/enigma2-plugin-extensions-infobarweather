@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = 0.7
+VERSION = 0.8
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -589,7 +589,8 @@ class SelectLocationScreen(Screen):
 		self["country"] = Label(_("Country"))
 		self["locationList"] = LocationList(list=self.locationList)
 		self["key_red"] = Button(_("Cancel"))
-		self["key_green"] = Button(_("Select"))
+		if len(self.locationList) > 0:
+			self["key_green"] = Button(_("Select"))
 
 	def keyOk(self):
 		current = self["locationList"].getCurrent()
