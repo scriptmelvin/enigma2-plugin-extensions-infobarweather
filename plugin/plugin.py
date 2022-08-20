@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = 0.8
+VERSION = 0.9
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -48,6 +48,16 @@ settings.locationlon = ConfigText()
 settings.locationname = ConfigText()
 settings.locationname2 = ConfigSelection([_("Press OK")])
 settings.windSpeedUnit = ConfigSelection(choices=[("1", _("BFT")), ("2", _("m/s")), ("3", _("km/h"))], default="1")
+settings.showregio = ConfigYesNo(True)
+settings.showtime = ConfigYesNo(True)
+settings.showsunriseset = ConfigYesNo(True)
+settings.showhumidity = ConfigYesNo(True)
+settings.showrain = ConfigYesNo(True)
+settings.showrainforecast = ConfigYesNo(True)
+settings.showwind = ConfigYesNo(True)
+settings.showicon = ConfigYesNo(True)
+settings.showtemperature = ConfigYesNo(True)
+settings.showfeeltemperature = ConfigYesNo(True)
 settings.hasRain = ConfigBoolean()
 
 
@@ -96,7 +106,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 	ALL = RAIN | WEATHER | REST
 	hasRainWidget = False
 	windDirections = ["N", "NNO", "NO", "ONO", "O", "OZO", "ZO", "ZZO", "Z", "ZZW", "ZW", "WZW", "W", "WNW", "NW", "NNW" ]
-	units = {"airpressure": " hPa", "feeltemperature": "°", "groundtemperature": "°", "humidity": "%", "precipitation": " mm", "rainFallLast24Hour": " mm", "rainFallLastHour": " mm", "sunpower": " W/m²", "temperature": "°", "visibility": " m", "winddirectiondegrees": "°", "windgusts": " m/s", "windspeedms": " m/s", "beaufort": " BFT"}
+	units = {"airpressure": " hPa", "feeltemperature": "°", "groundtemperature": "°", "humidity": "%", "precipitation": "%", "rainFallLast24Hour": " mm", "rainFallLastHour": " mm", "sunpower": " W/m²", "temperature": "°", "visibility": " m", "winddirectiondegrees": "°", "windgusts": " m/s", "windspeedms": " m/s", "beaufort": " BFT"}
 	infoBarBackground = None
 	secondInfoBarBackground = None
 	lastUpdate = datetime.datetime.min
@@ -140,13 +150,15 @@ class InfoBarWeather(Screen, InfoBarExtra):
 				<widget name="winddirectionMultiPixmap" position="915,7" size="30,30" alphatest="blend" pixmaps="%(windPixmaps)s" />
 				<widget name="beaufort" position="948,0" size="112,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
 				<widget name="windspeedms" position="948,0" size="200,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="weatherPixmap" position="1065,7" size="30,30" alphatest="blend" />
-				<widget name="temperature" position="1107,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="feeltemperature" position="1175,0" size="80,45" valign="center" halign="right" foregroundColors="#00B6B6B6,#29abe2,#ff5555" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
 				%(rainWidgets)s
 				<widget name="zero" position="820,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
 				<widget name="one" position="844,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
 				<widget name="two" position="868,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
+				<widget name="precipitationPixmap" position="806,7" size="30,30" alphatest="blend" pixmap="%(imageDir)s/rain.png" />
+				<widget name="precipitation" position="836,0" size="200,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="weatherPixmap" position="1065,7" size="30,30" alphatest="blend" />
+				<widget name="temperature" position="1107,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="feeltemperature" position="1175,0" size="80,45" valign="center" halign="right" foregroundColors="#00B6B6B6,#29abe2,#ff5555" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
 			</screen>""" % {"screen_name": PLUGIN_NAME, "imageDir": imageDir, "windPixmaps": windPixmaps, "secondInfoBarBackgroundColor": secondInfoBarBackgroundColor, "rainWidgets": rainWidgets}
 		if not fileExists(tmpdir):
 			os.mkdir(tmpdir)
@@ -156,7 +168,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		Screen.__init__(self, session)
 		for item in xml.etree.ElementTree.ElementTree(xml.etree.ElementTree.fromstring(self.skin)).getroot().findall('./widget'):
 			name = item.attrib["name"]
-			if "rainMultiPixmap" in name:
+			if "rainMultiPixmap" in name or name == "precipitation":
 				self.hasRainWidget = True
 			if "MultiPixmap" in name or "pixmaps" in item.attrib:
 				self[name] = MultiPixmap()
@@ -231,9 +243,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		self.showWidgets(self.RAIN)
 
 	def downloadIconCB(self, string):
-		print("[%s] downloadIconCB()" % (TAG))
 		self["weatherPixmap"].instance.setPixmapFromFile(str(self.iconfilepath))
-		print("[%s] downloadIconCB() 2" % (TAG))
 		self.showWidgets(self.WEATHER)
 
 	def hideOrShowWidgets(self, how, what):
@@ -241,34 +251,50 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			hasRain = settings.hasRain.value
 			for x in range(0, 24):
 				if "rainMultiPixmap" + str(x) in self:
-					if how and hasRain:
+					if settings.showrain.value and settings.showrainforecast.value and how and hasRain:
 						self["rainMultiPixmap" + str(x)].show()
 					else:
 						self["rainMultiPixmap" + str(x)].hide()
 			for x in ["zero", "one", "two"]:
 				if x in self:
-					if how and hasRain:
+					if settings.showrain.value and settings.showrainforecast.value and how and hasRain:
+						self[x].show()
+					else:
+						self[x].hide()
+			for x in ["precipitation", "precipitationPixmap"]:
+				if x in self:
+					if settings.showrain.value and how and (not hasRain or not settings.showrainforecast.value):
 						self[x].show()
 					else:
 						self[x].hide()
 		if what & self.WEATHER:
 			if "weatherPixmap" in self:
-				if how:
+				if settings.showicon.value and how:
 					self["weatherPixmap"].show()
 				else:
 					self["weatherPixmap"].hide()
 		if what & self.REST:
 			windSpeedUnit = int(settings.windSpeedUnit.value)
 			for x in self:
-				if x[0] != '_' and "nfoBarBackground" not in x and "rainMultiPixmap" not in x and x != "weatherPixmap" and x != "zero" and x != "one" and x != "two" and x != "notconfigured":
+				if x[0] != '_' and "precipitation" not in x and "nfoBarBackground" not in x and "rainMultiPixmap" not in x and x != "weatherPixmap" and x != "zero" and x != "one" and x != "two" and x != "notconfigured":
 					try:
-						if how:
+						if x == 'sunrise' or x == 'sunset' or x == 'sunrisesetPixmap':
+							attr = 'showsunriseset'
+						elif x == 'humidity' or x == 'humidityPixmap':
+							attr = 'showhumidity'
+						elif x == 'weatherPixmap':
+							attr = 'showicon'
+						elif x == 'windspeedms' or x == 'beaufort' or x == 'winddirectionMultiPixmap':
+							attr = 'showwind'
+						else:
+							attr = 'show' + x
+						if hasattr(settings, attr) and getattr(settings, attr).value and how:
 							if (windSpeedUnit == 1 and x == "windspeedms") or (windSpeedUnit != 1 and x == "beaufort"):
 								continue
 							self[x].show()
 						else:
 							self[x].hide()
-					except (AttributeError, IndexError):
+					except (AttributeError, IndexError) as e:
 						pass
 
 	def hideWidgets(self, what):
@@ -303,7 +329,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		x['beaufort']        = str(d['beaufort'])
 		x['windspeedms']     = str(int(round(d['windspeedms']))) if int(settings.windSpeedUnit.value) == 2 else str(int(round(d['windspeedms'] * 3.6)))
 		x['humidity']        = str(d['humidity'])
-		#x['precipitationmm'] = str(d['precipitationmm'])
+		x['precipitation']   = str(d['precipitation'])
 
 		if "weatherPixmap" in self and "iconcode" in d:
 			iconurl = "https://www.buienradar.nl/resources/images/icons/weather/30x30/" + d["iconcode"] + ".png"
@@ -357,6 +383,8 @@ class InfoBarWeather(Screen, InfoBarExtra):
 						self[y].setForegroundColorNum(1)
 					else:
 						self[y].setForegroundColorNum(0)
+		if self.hasRainWidget and not settings.hasRain.value:
+			self.showWidgets(self.RAIN)
 		self.showWidgets(self.REST)
 
 	def _onShowInfoBar(self, parent):
@@ -397,7 +425,6 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			else:
 				self['windspeedms'].setText('')
 
-
 	def checkIfStale(self):
 		locationid = settings.locationid.value
 		if locationid == 0:
@@ -412,7 +439,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			url = jsonUrl % locationid
 			print("[%s] downloading %s to %s" % (TAG, url, jsonFile))
 			downloadWithProgress(url, jsonFile).start().addCallback(self.updateUI)
-			if settings.hasRain.value and self.hasRainWidget:
+			if self.hasRainWidget and settings.hasRain.value:
 				lat = float(settings.locationlat.value)
 				lon = float(settings.locationlon.value)
 				url = rainForecastUrl % (lat, lon)
@@ -632,7 +659,7 @@ class SetupScreen(Screen, ConfigListScreen):
 					<panel name="ButtonRed"/>
 					<panel name="ButtonGreen"/>
 					<panel name="KeyOkTemplate"/>
-					<widget name="config" position="780,153" size="1109,855" font="Regular; 28" itemHeight="45" scrollbarMode="showOnDemand" />
+					<widget name="config" position="780,120" size="1109,855" font="Regular; 28" itemHeight="45" scrollbarMode="showOnDemand" />
 				</screen>"""
 		elif desktopWidth > 1800:
 			self.skin = """
@@ -658,11 +685,10 @@ class SetupScreen(Screen, ConfigListScreen):
 				</screen>"""
 		self.session = session
 		Screen.__init__(self, session)
-		self.setTitle(_("InfoBarWeather setup"))
-		self.lst = [getConfigListEntry(_('Enabled'), settings.enabled),
-					getConfigListEntry(_('Location'), settings.locationname2, _("Press OK to open location search. Note that the rain widget only works for The Netherlands and Belgium.")),
-					getConfigListEntry(_('Wind speed unit'), settings.windSpeedUnit, _("Display wind speed as BFT, m/s or km/h."))]
-		ConfigListScreen.__init__(self, self.lst, session=session) #, on_change=self.changed)
+		self.setTitle(_("InfoBarWeather %(version)s setup" % {"version": str(VERSION)}))
+		ConfigListScreen.__init__(self, [], session=session) #, on_change=self.changed)
+		self.onLayoutFinish.append(self.initConfiglist)
+		self.onClose.append(self.deinitConfig)
 		locationname = settings.locationname.value
 		if locationname is not None and locationname != '':
 			settings.locationname2.setCurrentText(locationname)
@@ -677,12 +703,40 @@ class SetupScreen(Screen, ConfigListScreen):
 		self["key_green"] = Button(_("Save"))
 		self["description"] = Label("")
 
+	def initConfiglist(self):
+		settings.enabled.addNotifier(self.buildConfiglist, initial_call=False)
+		settings.showrain.addNotifier(self.buildConfiglist, initial_call=False)
+		self.buildConfiglist()
+
+	def deinitConfig(self):
+		settings.enabled.removeNotifier(self.buildConfiglist)
+		settings.showrain.removeNotifier(self.buildConfiglist)
+
+	def buildConfiglist(self, configElement=None):
+		cfgList = [getConfigListEntry(_('Enabled'), settings.enabled)]
+		if settings.enabled.value:
+			cfgList.extend([
+				getConfigListEntry(_('Location'), settings.locationname2, _("Press OK to open location search.")),
+				getConfigListEntry(_('Wind speed unit'), settings.windSpeedUnit, _("Display wind speed as BFT, m/s or km/h.")),
+				getConfigListEntry(_('Show location'), settings.showregio),
+				getConfigListEntry(_('Show last update time'), settings.showtime, _("Show last update time by weather service.")),
+				getConfigListEntry(_('Show sunrise/sunset'), settings.showsunriseset),
+				getConfigListEntry(_('Show humidity'), settings.showhumidity),
+				getConfigListEntry(_('Show rain'), settings.showrain)])
+			if self.hasRain and settings.showrain.value:
+				cfgList.append(getConfigListEntry(_('Show rain forecast'), settings.showrainforecast, _("Show two hour rain forecast instead of rain probability (only available for The Netherlands and Belgium).")))
+			cfgList.extend([
+				getConfigListEntry(_('Show wind'), settings.showwind),
+				getConfigListEntry(_('Show icon'), settings.showicon),
+				getConfigListEntry(_('Show temperature'), settings.showtemperature),
+				getConfigListEntry(_('Show feel temperature'), settings.showfeeltemperature)])
+		self["config"].list = cfgList
+		self["config"].l.setList(cfgList)
+
 	def keyCancel(self):
-		settings.locationname2.value = settings.locationname2.default
 		ConfigListScreen.keyCancel(self)
 
 	def keySave(self):
-		settings.locationname2.value = settings.locationname2.default
 		settings.locationid.value = self.locationid
 		settings.locationid.save()
 		settings.hasRain.value = self.hasRain
@@ -727,11 +781,14 @@ class SetupScreen(Screen, ConfigListScreen):
 		if locationid is not None:
 			self.locationid = locationid
 			self.country = country
+			prevHasRain = self.hasRain
 			self.hasRain = hasRain
 			self.locationname = locationname
 			self.locationlat = locationlat
 			self.locationlon = locationlon
 			settings.locationname2.setCurrentText(locationname)
+			if hasRain != prevHasRain:
+				self.buildConfiglist()
 
 
 def setup(session, **kwargs):
