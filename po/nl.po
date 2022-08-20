@@ -49,8 +49,10 @@ msgstr "Annuleren"
 msgid "Select"
 msgstr "Selecteer"
 
-msgid "InfoBarWeather setup"
-msgstr "InfoBarWeather instellingen"
+# TRANSLATORS: do not translate %(version)s
+#              it will be replaced by the plugins version
+msgid "InfoBarWeather %(version)s setup"
+msgstr "InfoBarWeather %(version)s instellingen"
 
 msgid "Enabled"
 msgstr "Ingeschakeld"
@@ -58,18 +60,54 @@ msgstr "Ingeschakeld"
 msgid "Location"
 msgstr "Locatie"
 
-msgid ""
-"Press OK to open location search. Note that the rain widget only works for "
-"The Netherlands and Belgium."
-msgstr ""
-"Druk OK om locatie zoeken te openen. Opmerking: het regenwidget werkt alleen voor "
-"Netherland and België."
+msgid "Press OK to open location search."
+msgstr "Druk OK om locatie zoeken te openen."
 
 msgid "Wind speed unit"
 msgstr "Windsnelheidseenheid"
 
 msgid "Display wind speed as BFT, m/s or km/h."
 msgstr "Toon windsnelheid als BFT, m/s or km/h."
+
+msgid "Show location"
+msgstr "Toon locatie"
+
+msgid "Show last update time"
+msgstr "Toon laatste update tijd"
+
+msgid "Show last update time by weather service."
+msgstr "Toon laatste update tijd door de weerdienst."
+
+msgid "Show sunrise/sunset"
+msgstr "Toon zonsopgang/zonsondergang"
+
+msgid "Show humidity"
+msgstr "Toon luchtvochtigheid"
+
+msgid "Show rain"
+msgstr "Toon regen"
+
+msgid "Show rain forecast"
+msgstr "Toon regenvoorspelling"
+
+msgid ""
+"Show two hour rain forecast instead of rain probability (only available for "
+"The Netherlands and Belgium)."
+msgstr ""
+"Toon twee uur regenvoorspelling in plaats van regenwaarschijnlijkheid ("
+"alleen beschikbaar voor Nederland en België)."
+
+msgid "Show wind"
+msgstr "Toon wind"
+
+msgid "Show icon"
+msgstr "Toon icoon"
+
+msgid "Show temperature"
+msgstr "Toon temperatuur"
+
+msgid "Show feel temperature"
+msgstr "Toon gevoelstemperatuur"
 
 msgid "Save"
 msgstr "Opslaan"
