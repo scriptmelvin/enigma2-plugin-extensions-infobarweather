@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = 0.10
+VERSION = '0.10'
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -685,7 +685,7 @@ class SetupScreen(Screen, ConfigListScreen):
 				</screen>"""
 		self.session = session
 		Screen.__init__(self, session)
-		self.setTitle(_("InfoBarWeather %(version)s setup" % {"version": str(VERSION)}))
+		self.setTitle(_("InfoBarWeather %(version)s setup" % {"version": VERSION}))
 		ConfigListScreen.__init__(self, [], session=session) #, on_change=self.changed)
 		self.onLayoutFinish.append(self.initConfiglist)
 		self.onClose.append(self.deinitConfig)
