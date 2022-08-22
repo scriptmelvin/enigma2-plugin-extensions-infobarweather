@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = 0.9
+VERSION = 0.10
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -130,7 +130,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		startPos = 826
 		rainWidgets = "\n\t\t\t\t".join(["<widget name=\"rainMultiPixmap" + str(x) + "\" position=\"" + str(startPos + 2 * x) + ",2\" size=\"2,29\" alphatest=\"blend\" pixmaps=\"%(rainPixmaps)s\" />" % {"rainPixmaps": rainPixmaps} for x in range(0, 24)])
 		self.skin = """
-			<screen name="%(screen_name)s" position="384,845" size="1256,51" backgroundColor="#ff000000" zPosition="2" flags="wfNoBorder">
+			<screen name="%(screen_name)s" position="384,845" size="1416,51" backgroundColor="#ff000000" zPosition="2" flags="wfNoBorder">
 				<!-- SKINNERS: enable at most one of the following two lines -->
 				<!--<widget name="infoBarBackground" position="0,0" size="1536,51" zPosition="-1" backgroundColor="#ff000000" />-->
 				<widget name="infoBarBackground" position="0,0" size="1536,51" zPosition="-1" alphatest="off" pixmap="%(imageDir)s/PLi-FullNightHD-background.png" />
