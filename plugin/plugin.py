@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = '0.10'
+VERSION = '0.11'
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -24,7 +24,6 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from skin import parseFont
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import fileExists
-from Tools.Downloader import downloadWithProgress
 
 import datetime
 import json
@@ -34,10 +33,31 @@ import threading
 import time
 import xml
 
+
 try:
-	from urllib import quote
-except ImportError:
 	from urllib.parse import quote
+except ImportError:
+	from urllib import quote
+
+
+try:
+
+	import treq
+
+	class download:
+
+		def __init__(self, url, outputfile):
+			self.url = url
+			self.outputfile = outputfile
+
+		def start(self):
+			outfile = open(self.outputfile, "wb")
+			return treq.get(self.url, unbuffered=True).addCallback(treq.collect, outfile.write).addBoth(lambda _: outfile.close())
+
+except ImportError:
+
+	from Tools.Downloader import downloadWithProgress as download
+
 
 setattr(config.plugins, PLUGIN_NAME, ConfigSubsection())
 settings = getattr(config.plugins, PLUGIN_NAME)
@@ -62,13 +82,12 @@ settings.hasRain = ConfigBoolean()
 
 
 jsonUrl = "https://forecast.buienradar.nl/2.0/forecast/%d"
-rainForecastUrl = "https://gps.buienradar.nl/getrr.php?lat=%g&lon=%g"
+rainForecastUrl = "https://gpsgadget.buienradar.nl/data/raintext/?lat=%g&lon=%g"
 tmpdir = "/tmp/%s" % PLUGIN_NAME
 jsonFile = "%s/weather.json" % tmpdir
 rainFile = "%s/rainForecast.txt" % tmpdir
 
 TAG = PLUGIN_NAME
-infoBarWeatherInstance = None
 
 desktopWidth = getDesktop(0).size().width()
 
@@ -106,12 +125,13 @@ class InfoBarWeather(Screen, InfoBarExtra):
 	ALL = RAIN | WEATHER | REST
 	hasRainWidget = False
 	windDirections = ["N", "NNO", "NO", "ONO", "O", "OZO", "ZO", "ZZO", "Z", "ZZW", "ZW", "WZW", "W", "WNW", "NW", "NNW" ]
-	units = {"airpressure": " hPa", "feeltemperature": "°", "groundtemperature": "°", "humidity": "%", "precipitation": "%", "rainFallLast24Hour": " mm", "rainFallLastHour": " mm", "sunpower": " W/m²", "temperature": "°", "visibility": " m", "winddirectiondegrees": "°", "windgusts": " m/s", "windspeedms": " m/s", "beaufort": " BFT"}
+	units = {"airpressure": " hPa", "feeltemperature": "°", "groundtemperature": "°", "mintemperature": "°", "maxtemperature": "°", "humidity": "%", "precipitation": "%", "rainFallLast24Hour": " mm", "rainFallLastHour": " mm", "sunpower": " W/m²", "temperature": "°", "visibility": " m", "winddirectiondegrees": "°", "windgusts": " m/s", "windspeedms": " m/s", "beaufort": " BFT"}
 	infoBarBackground = None
 	secondInfoBarBackground = None
 	lastUpdate = datetime.datetime.min
 	updateInterval = 10 # minutes
 	lastUpdateLock = threading.Lock()
+	instance = None
 
 	def __init__(self, session):
 		windSpeedUnit = int(settings.windSpeedUnit.value)
@@ -127,10 +147,10 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		rainImageDir = imageDir + "/rain/"
 		windPixmaps = ",".join([windImageDir + x + ".png" for x in self.windDirections])
 		rainPixmaps = ",".join([rainImageDir + "%d.png" % x for x in range(0, 30)])
-		startPos = 826
+		startPos = 818
 		rainWidgets = "\n\t\t\t\t".join(["<widget name=\"rainMultiPixmap" + str(x) + "\" position=\"" + str(startPos + 2 * x) + ",2\" size=\"2,29\" alphatest=\"blend\" pixmaps=\"%(rainPixmaps)s\" />" % {"rainPixmaps": rainPixmaps} for x in range(0, 24)])
 		self.skin = """
-			<screen name="%(screen_name)s" position="384,845" size="1416,51" backgroundColor="#ff000000" zPosition="2" flags="wfNoBorder">
+			<screen name="%(screen_name)s" position="392,845" size="1408,51" backgroundColor="#ff000000" zPosition="2" flags="wfNoBorder">
 				<!-- SKINNERS: enable at most one of the following two lines -->
 				<!--<widget name="infoBarBackground" position="0,0" size="1536,51" zPosition="-1" backgroundColor="#ff000000" />-->
 				<widget name="infoBarBackground" position="0,0" size="1536,51" zPosition="-1" alphatest="off" pixmap="%(imageDir)s/PLi-FullNightHD-background.png" />
@@ -139,26 +159,28 @@ class InfoBarWeather(Screen, InfoBarExtra):
 				<widget name="secondInfoBarBackground" position="0,0" size="1536,51" zPosition="-1" backgroundColor="%(secondInfoBarBackgroundColor)s" />
 				<!--<widget name="secondInfoBarBackground" position="0,0" size="1536,51" zPosition="-1" alphatest="off" pixmap="" />-->
 
-				<widget name="notconfigured" position="18,0" size="1096,45" valign="center" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="regio" position="18,0" size="337,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="time" position="360,0" size="70,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="sunrise" position="450,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="sunrisesetPixmap" position="538,7" size="50,30" alphatest="blend" pixmap="%(imageDir)s/sunriseset.png" />
-				<widget name="sunset" position="595,0" size="80,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="humidityPixmap" position="698,7" size="30,30" alphatest="blend" pixmap="%(imageDir)s/droplet.png" />
-				<widget name="humidity" position="726,0" size="80,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="winddirectionMultiPixmap" position="915,7" size="30,30" alphatest="blend" pixmaps="%(windPixmaps)s" />
-				<widget name="beaufort" position="948,0" size="112,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="windspeedms" position="948,0" size="200,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="notconfigured" position="10,0" size="1096,45" valign="center" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="regio" position="10,0" size="337,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="time" position="352,0" size="70,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="sunrise" position="442,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="sunrisesetPixmap" position="530,7" size="50,30" alphatest="blend" pixmap="%(imageDir)s/sunriseset.png" />
+				<widget name="sunset" position="587,0" size="80,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="humidityPixmap" position="690,7" size="30,30" alphatest="blend" pixmap="%(imageDir)s/droplet.png" />
+				<widget name="humidity" position="718,0" size="80,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="winddirectionMultiPixmap" position="907,7" size="30,30" alphatest="blend" pixmaps="%(windPixmaps)s" />
+				<widget name="beaufort" position="940,0" size="112,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="windspeedms" position="940,0" size="200,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
 				%(rainWidgets)s
-				<widget name="zero" position="820,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
-				<widget name="one" position="844,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
-				<widget name="two" position="868,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
-				<widget name="precipitationPixmap" position="806,7" size="30,30" alphatest="blend" pixmap="%(imageDir)s/rain.png" />
-				<widget name="precipitation" position="836,0" size="200,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="weatherPixmap" position="1065,7" size="30,30" alphatest="blend" />
-				<widget name="temperature" position="1107,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
-				<widget name="feeltemperature" position="1175,0" size="80,45" valign="center" halign="right" foregroundColors="#00B6B6B6,#29abe2,#ff5555" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="zero" position="812,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
+				<widget name="one" position="836,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
+				<widget name="two" position="860,30" size="12,14" valign="top" halign="center" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 11" transparent="1" />
+				<widget name="precipitationPixmap" position="798,7" size="30,30" alphatest="blend" pixmap="%(imageDir)s/rain.png" />
+				<widget name="precipitation" position="828,0" size="200,45" valign="center" halign="left" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="weatherPixmap" position="1057,7" size="30,30" alphatest="blend" />
+				<widget name="temperature" position="1099,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="feeltemperature" position="1167,0" size="80,45" valign="center" halign="right" foregroundColors="#00B6B6B6,#29abe2,#ff5555" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="mintemperature" position="1235,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
+				<widget name="maxtemperature" position="1303,0" size="80,45" valign="center" halign="right" foregroundColor="#00B6B6B6" backgroundColor="#18101214" font="Regular; 26" transparent="1" />
 			</screen>""" % {"screen_name": PLUGIN_NAME, "imageDir": imageDir, "windPixmaps": windPixmaps, "secondInfoBarBackgroundColor": secondInfoBarBackgroundColor, "rainWidgets": rainWidgets}
 		if not fileExists(tmpdir):
 			os.mkdir(tmpdir)
@@ -197,14 +219,13 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			self["two"].setText("2")
 		self.timer = eTimer()
 		self.timer.callback.append(self.timerCB)
-		global infoBarWeatherInstance
-		infoBarWeatherInstance = self
+		InfoBarWeather.instance = self
 
 	def timerCB(self):
 		self.checkIfStale()
 		InfoBarExtra.timerCB(self)
 
-	def downloadRainCB(self, string):
+	def downloadRainCB(self, result):
 		try:
 			with open(rainFile, "r") as f:
 				txt = f.read()
@@ -242,7 +263,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			i += 1
 		self.showWidgets(self.RAIN)
 
-	def downloadIconCB(self, string):
+	def downloadIconCB(self, result):
 		self["weatherPixmap"].instance.setPixmapFromFile(str(self.iconfilepath))
 		self.showWidgets(self.WEATHER)
 
@@ -303,10 +324,10 @@ class InfoBarWeather(Screen, InfoBarExtra):
 	def showWidgets(self, what):
 		self.hideOrShowWidgets(True, what)
 
-	def errback(self, message=None):
-		print("[%s] error: %s" % (TAG, str(message)))
+	def errback(self, failure):
+		print("[%s] error: %s" % (TAG, str(failure)))
 
-	def updateUI(self, string):
+	def updateUI(self, result):
 		try:
 			with open(jsonFile, "r") as f:
 				j = json.loads(f.read())
@@ -337,7 +358,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			self.iconfilepath = tmpdir + "/" + filename
 			if not fileExists(self.iconfilepath):
 				print("[%s] downloading %s to %s" % (TAG, str(iconurl), self.iconfilepath))
-				downloadWithProgress(str(iconurl), self.iconfilepath).start().addCallback(self.downloadIconCB).addErrback(self.errback)
+				download(str(iconurl), self.iconfilepath).start().addCallback(self.downloadIconCB).addErrback(self.errback)
 			else:
 				try:
 					self["weatherPixmap"].instance.setPixmapFromFile(str(self.iconfilepath))
@@ -361,6 +382,14 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		except KeyError:
 			pass
 		try:
+			x["mintemperature"] = j['days'][0]['mintemperature']
+		except KeyError:
+			pass
+		try:
+			x["maxtemperature"] = j['days'][0]['maxtemperature']
+		except KeyError:
+			pass
+		try:
 			dt = datetime.datetime.strptime(j['timestamp'], '%Y-%m-%dT%H:%M:%S')
 			x["time"] = str(dt + datetime.timedelta(hours=j['timeOffset']))[11:-3]
 		except KeyError:
@@ -377,9 +406,9 @@ class InfoBarWeather(Screen, InfoBarExtra):
 				cur_val += unit
 				self[y].setText(cur_val)
 				if y == "feeltemperature" and "temperature" in x:
-					if x[y] > x["temperature"]:
+					if float(x[y]) > float(x["temperature"]):
 						self[y].setForegroundColorNum(2)
-					elif x[y] < x["temperature"]:
+					elif float(x[y]) < float(x["temperature"]):
 						self[y].setForegroundColorNum(1)
 					else:
 						self[y].setForegroundColorNum(0)
@@ -438,13 +467,13 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			self.hideWidgets(self.ALL)
 			url = jsonUrl % locationid
 			print("[%s] downloading %s to %s" % (TAG, url, jsonFile))
-			downloadWithProgress(url, jsonFile).start().addCallback(self.updateUI)
+			download(url, jsonFile).start().addCallback(self.updateUI)
 			if self.hasRainWidget and settings.hasRain.value:
 				lat = float(settings.locationlat.value)
 				lon = float(settings.locationlon.value)
 				url = rainForecastUrl % (lat, lon)
 				print("[%s] downloading %s to %s" % (TAG, url, rainFile))
-				downloadWithProgress(url, rainFile).start().addCallback(self.downloadRainCB)
+				download(url, rainFile).start().addCallback(self.downloadRainCB)
 
 	def onShowHideInfoBar(self, shown):
 		if not settings.enabled.value:
@@ -750,8 +779,8 @@ class SetupScreen(Screen, ConfigListScreen):
 		ConfigListScreen.keySave(self)
 		reason = 0 if settings.enabled.value else 1
 		start(SETTINGSCHANGE, reason=reason)
-		if settings.enabled.value and infoBarWeatherInstance is not None:
-			infoBarWeatherInstance.reset()
+		if settings.enabled.value and InfoBarWeather.instance is not None:
+			InfoBarWeather.instance.reset()
 
 	def keyOk(self):
 		sel = self["config"].getCurrent()[1]
@@ -765,17 +794,19 @@ class SetupScreen(Screen, ConfigListScreen):
 		self["description"].hide()
 		url = 'https://location.buienradar.nl/1.1/location/search?query=' + quote(searchterm)
 		print("[%s] downloading %s to %s" % (TAG, url, tmpdir + '/locations.json'))
-		downloadWithProgress(url, tmpdir + '/locations.json').start().addCallback(self.downloadLocationsSuccessCB).addErrback(self.downloadLocationsFailureCB)
+		download(url, tmpdir + '/locations.json').start().addCallback(self.downloadLocationsSuccessCB).addErrback(self.downloadLocationsFailureCB)
 
-	def downloadLocationsSuccessCB(self, string):
+	def downloadLocationsSuccessCB(self, result):
 		self.session.openWithCallback(self.selectLocationScreenCB, SelectLocationScreen)
 		self["config"].show()
 		self["description"].show()
+		return result
 
-	def downloadLocationsFailureCB(self, string):
+	def downloadLocationsFailureCB(self, failure):
 		self.session.open(MessageBox, _("Could not download location data."), MessageBox.TYPE_ERROR)
 		self["config"].show()
 		self["description"].show()
+		return failure
 
 	def selectLocationScreenCB(self, locationid=None, country=None, hasRain=None, locationname=None, locationlat=None, locationlon=None):
 		if locationid is not None:
@@ -792,11 +823,8 @@ class SetupScreen(Screen, ConfigListScreen):
 
 
 def setup(session, **kwargs):
-	global session_
-	session_ = session
-	session_.open(SetupScreen)
+	session.open(SetupScreen)
 
-session_ = None
 started = False
 baseInfoBarShowHide__init__ = None
 InfoBarWeatherDialog = None
@@ -804,9 +832,11 @@ InfoBarWeatherDialog_onShowInfoBar = None
 
 def newInfoBarShowHide__init__(self):
 	global InfoBarWeatherDialog, InfoBarWeatherDialog_onShowInfoBar
-	InfoBarWeatherDialog = self.session.instantiateDialog(InfoBarWeather)
-	if baseInfoBarShowHide__init__:
+	if baseInfoBarShowHide__init__ is not None:
 		baseInfoBarShowHide__init__(self)
+	if InfoBarWeatherDialog is not None:
+		return
+	InfoBarWeatherDialog = self.session.instantiateDialog(InfoBarWeather)
 	InfoBarWeatherDialog_onShowInfoBar = boundFunction(InfoBarWeatherDialog._onShowInfoBar, self)
 	self.onShow.append(InfoBarWeatherDialog_onShowInfoBar)
 	self.onHide.append(InfoBarWeatherDialog._onHideInfoBar)
@@ -848,7 +878,7 @@ def start(why, **kwargs):
 			if not started:
 				# we've just been installed or enabled
 				started = True
-				if InfoBar.instance:
+				if InfoBar.instance is not None:
 					print("[%s] InfoBar is already instantiated, modifying existing InfoBar instance" % TAG)
 					newInfoBarShowHide__init__(InfoBar.instance)
 				else:
