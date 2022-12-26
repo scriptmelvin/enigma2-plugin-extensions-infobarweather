@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = '0.11'
+VERSION = '0.12'
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -672,12 +672,6 @@ class SelectLocationScreen(Screen):
 
 class SetupScreen(Screen, ConfigListScreen):
 
-	locationid = settings.locationid.value
-	hasRain = settings.hasRain.value
-	locationname = settings.locationname.value
-	locationlat = settings.locationlat.value
-	locationlon = settings.locationlon.value
-
 	def __init__(self, session):
 		primarySkin = config.skin.primary_skin.value.split("/")[0]
 		if primarySkin == "PLi-FullNightHD" or primarySkin == "PLi-FullHD" or primarySkin == "Pd1loi-HD-night":
@@ -713,6 +707,11 @@ class SetupScreen(Screen, ConfigListScreen):
 					<widget name="key_green" position="195,e-50" zPosition="1" size="140,40" font="Regular; 20" valign="center" halign="center" backgroundColor="#1f771f" transparent="1" />
 				</screen>"""
 		self.session = session
+		self.locationid = settings.locationid.value
+		self.hasRain = settings.hasRain.value
+		self.locationname = settings.locationname.value
+		self.locationlat = settings.locationlat.value
+		self.locationlon = settings.locationlon.value
 		Screen.__init__(self, session)
 		self.setTitle(_("InfoBarWeather %(version)s setup" % {"version": VERSION}))
 		ConfigListScreen.__init__(self, [], session=session) #, on_change=self.changed)
