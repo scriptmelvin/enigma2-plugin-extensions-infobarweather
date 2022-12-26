@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = '0.12'
+VERSION = '0.13'
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -303,8 +303,6 @@ class InfoBarWeather(Screen, InfoBarExtra):
 							attr = 'showsunriseset'
 						elif x == 'humidity' or x == 'humidityPixmap':
 							attr = 'showhumidity'
-						elif x == 'weatherPixmap':
-							attr = 'showicon'
 						elif x == 'windspeedms' or x == 'beaufort' or x == 'winddirectionMultiPixmap':
 							attr = 'showwind'
 						else:
@@ -362,16 +360,14 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			else:
 				try:
 					self["weatherPixmap"].instance.setPixmapFromFile(str(self.iconfilepath))
-					self["weatherPixmap"].show()
+					self.showWidgets(self.WEATHER)
 				except Exception as e:
 					self["weatherPixmap"].hide()
 					print("[%s] Exception: %s" % (TAG, e))
 		if "winddirectionMultiPixmap" in self and "winddirection" in d:
 			try:
 				self["winddirectionMultiPixmap"].setPixmapNum(self.windDirections.index(d["winddirection"]))
-				self["winddirectionMultiPixmap"].show()
 			except IndexError:
-				self["winddirectionMultiPixmap"].hide()
 				print("[%s] IndexError: %s" % (TAG, d["winddirection"]))
 		try:
 			x["sunrise"] = j['days'][0]['sunrise'].split('T')[1][:5]
