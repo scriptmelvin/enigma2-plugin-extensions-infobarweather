@@ -1,0 +1,126 @@
+# Copyright (C) 2022 scriptmelvin
+# This file is distributed under the same license as the InfoBarWeather package.
+# FIRST AUTHOR scriptmelvin, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: InfoBarWeather\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-08-10 21:53+0200\n"
+"PO-Revision-Date: 2022-12-26 13:03+0100\n"
+"Last-Translator: paps\n"
+"Language-Team: scriptmelvin\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 "
+"|| n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+msgid "Press OK"
+msgstr "Wciśnij OK"
+
+msgid "BFT"
+msgstr "BFT"
+
+msgid "m/s"
+msgstr "m/s"
+
+msgid "km/h"
+msgstr "km/s"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Proszę wprowadzić miejscowość w ustawieniach wtyczki"
+
+msgid "Select location"
+msgstr "Wybierz miejscowość"
+
+msgid "Could not parse location data."
+msgstr "Nie można przetworzyć danych dotyczących miejscowości."
+
+msgid "State/province"
+msgstr "Stan/Prowincja"
+
+msgid "Country"
+msgstr "Kraj"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Select"
+msgstr "Wybierz"
+
+# TRANSLATORS: do not translate %(version)s
+#              it will be replaced by the plugins version
+msgid "InfoBarWeather %(version)s setup"
+msgstr "InfoBarWeather %(version)s ustawienia"
+
+msgid "Enabled"
+msgstr "Włączenie/wyłączenie wtyczki"
+
+msgid "Location"
+msgstr "Miejscowość"
+
+msgid "Press OK to open location search."
+msgstr "Wciśnij OK, aby wyszukać miejscowość."
+
+msgid "Wind speed unit"
+msgstr "Jednostka prętkości wiatru"
+
+msgid "Display wind speed as BFT, m/s or km/h."
+msgstr "Wyświetlanie prędkości wiatru w BFT, m/s lub km/h."
+
+msgid "Show location"
+msgstr "Pokaż miejscowość"
+
+msgid "Show last update time"
+msgstr "Pokaż godzinę ostatniej aktualizacji"
+
+msgid "Show last update time by weather service."
+msgstr "Pokaż godzinę ostatniej aktualizacji z serwisu pogodowego."
+
+msgid "Show sunrise/sunset"
+msgstr "Pokaż wschód/zachód słońca"
+
+msgid "Show humidity"
+msgstr "Pokaż wilgotność"
+
+msgid "Show rain"
+msgstr "Pokaż opady"
+
+msgid "Show rain forecast"
+msgstr "Pokaż prognozę opadów"
+
+msgid ""
+"Show two hour rain forecast instead of rain probability (only available for "
+"The Netherlands and Belgium)."
+msgstr ""
+"Pokaż dwugodzinną prognozę opadów zamiast prawdopodobieństwa opadów "
+"(dostępne tylko dla Holandii i Belgii)."
+
+msgid "Show wind"
+msgstr "Pokaż wiatr"
+
+msgid "Show icon"
+msgstr "Pokaż ikonę pogody"
+
+msgid "Show temperature"
+msgstr "Pokaż temperaturę"
+
+msgid "Show feel temperature"
+msgstr "Pokaż odczuwalną temperaturę"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr ""
+"Wprowadź miejscowość (pierwsze litery) do wyszukania (np. \"Amsterdam\" lub "
+"\"Ams\"):"
+
+msgid "Could not download location data."
+msgstr "Nie można przetworzyć danych dotyczących miejscowości."
+
+msgid "Show current weather in infobar"
+msgstr "Aktualna pogoda w InfoBar"
