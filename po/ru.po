@@ -1,0 +1,115 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPLi / InfoBarWeather\n"
+"PO-Revision-Date: 2023-01-11 10:40+0500\n"
+"Last-Translator: gisclub.tv | by Марчелла <marchella_ru@mail.ru>\n"
+"Language-Team: gisclub.tv | by Марчелла <marchella_ru@mail.ru>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ru\n"
+"X-Generator: Poedit 2.0.6\n"
+"X-Poedit-SourceCharset: iso-8859-5\n"
+
+msgid "Press OK"
+msgstr "Нажмите OK"
+
+msgid "BFT"
+msgstr "Ш.Б"
+
+msgid "m/s"
+msgstr "м/с"
+
+msgid "km/h"
+msgstr "км/ч"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Пожалуйста, настройте ваше местоположение в настройках плагина"
+
+msgid "Select location"
+msgstr "Выберите ваше местоположение"
+
+msgid "Could not parse location data."
+msgstr "Не удалось найти данные местоположения."
+
+msgid "State/province"
+msgstr "Государство/провинция"
+
+msgid "Country"
+msgstr "Страна"
+
+msgid "Cancel"
+msgstr "Отменить"
+
+msgid "Select"
+msgstr "Выбрать"
+
+# TRANSLATORS: do not translate %(version)s
+#              it will be replaced by the plugins version
+msgid "InfoBarWeather %(version)s setup"
+msgstr "Настройки InfoBarWeather %(version)s"
+
+msgid "Enabled"
+msgstr "Включить"
+
+msgid "Location"
+msgstr "Местоположение"
+
+msgid "Press OK to open location search."
+msgstr "Нажмите OK, чтобы открыть поиск местоположения."
+
+msgid "Wind speed unit"
+msgstr "Единица измерения скорости ветра"
+
+msgid "Display wind speed as BFT, m/s or km/h."
+msgstr "Отобразить скорость ветра в виде Ш.Б, м/с или км/ч."
+
+msgid "Show location"
+msgstr "Показать местоположение"
+
+msgid "Show last update time"
+msgstr "Показать время последнего обновления"
+
+msgid "Show last update time by weather service."
+msgstr "Показать время последнего обновления по метеослужбе."
+
+msgid "Show sunrise/sunset"
+msgstr "Показать рассвет/закат"
+
+msgid "Show humidity"
+msgstr "Показать влажность"
+
+msgid "Show rain"
+msgstr "Показать осадки"
+
+msgid "Show rain forecast"
+msgstr "Показать прогноз осадков"
+
+msgid ""
+"Show two hour rain forecast instead of rain probability (only available for The Netherlands and Belgium)."
+msgstr ""
+"Показывать двухчасовой прогноз осадков вместо вероятности осадков (доступно только для Нидерланды и Бельгии)."
+
+msgid "Show wind"
+msgstr "Показать скорость ветера"
+
+msgid "Show icon"
+msgstr "Показать иконки"
+
+msgid "Show temperature"
+msgstr "Показать температуру"
+
+msgid "Show feel temperature"
+msgstr "Показать температуру по ощущению"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr "Введите (часть) местоположение для поиска,(пример: \"Amsterdam\" или \"Ams\"):"
+
+msgid "Could not download location data."
+msgstr "Не удалось загрузить данные о местоположении."
+
+msgid "Show current weather in infobar"
+msgstr "Показать текущую погоду в инфобаре"
