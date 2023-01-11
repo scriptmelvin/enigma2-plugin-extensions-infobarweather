@@ -1,0 +1,119 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: InfoBarWeather\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-11 18:18+0000\n"
+"PO-Revision-Date: 2023-01-11 19:30+0100\n"
+"Last-Translator: Albakos\n"
+"Language-Team: Albanian\n"
+"Language: sq\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Loco-Source-Locale: sq_SQ\n"
+"X-Loco-Parser: loco_parse_mo\n"
+"X-Generator: Poedit 3.2\n"
+
+msgid "BFT"
+msgstr "BFT"
+
+msgid "Cancel"
+msgstr "Anulo"
+
+msgid "Could not download location data."
+msgstr "Kordinatat nuk munden të shkarkohen."
+
+msgid "Could not parse location data."
+msgstr "Të dhënat e vendndodhjes nuk mund të analizoheshin"
+
+msgid "Country"
+msgstr "Shteti"
+
+msgid "Display wind speed as BFT, m/s or km/h."
+msgstr "Shfaq shpejtësinë e erës si BFT, m/s or km/h."
+
+msgid "Enabled"
+msgstr "Aktivuar"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr "Fut (pjesë) vendin për të kërkuar (z.B. \"Amsterdam\" or \"Ams\"):"
+
+msgid "InfoBarWeather %(version)s setup"
+msgstr "InfoBarWeather %(version)s Konfigurimet"
+
+msgid "Location"
+msgstr "Lokacioni"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Ju lutemi konfiguroni një vendndodhje në cilësimet e shtojcave"
+
+msgid "Press OK"
+msgstr "Shtyp OK"
+
+msgid "Press OK to open location search."
+msgstr "Shtypni OK për të hapur kërkimin e vendndodhjes."
+
+msgid "Save"
+msgstr "Ruaje"
+
+msgid "Select"
+msgstr "Selekto"
+
+msgid "Select location"
+msgstr "Zgjidh lokacionin"
+
+msgid "Show current weather in infobar"
+msgstr "Shfaq motin aktual në Infobar"
+
+msgid "Show feel temperature"
+msgstr "Trego temperaturën e ndjerë"
+
+msgid "Show humidity"
+msgstr "Trego lagështin"
+
+msgid "Show icon"
+msgstr "Trego ikonën"
+
+msgid "Show last update time"
+msgstr "Trego kohën e përditësimit të fundit"
+
+msgid "Show last update time by weather service."
+msgstr "Shfaqja aktualizuese e fundit nga shërbimet i motit."
+
+msgid "Show location"
+msgstr "Trego lokacionin"
+
+msgid "Show rain"
+msgstr "Trego shiun"
+
+msgid "Show rain forecast"
+msgstr "Trago parashikimin e shiut"
+
+msgid "Show sunrise/sunset"
+msgstr "Trego lindjen dhe perendimin e diellit"
+
+msgid "Show temperature"
+msgstr "Trego temperaturen"
+
+msgid ""
+"Show two hour rain forecast instead of rain probability (only available for "
+"The Netherlands and Belgium)."
+msgstr ""
+"Trego parashikimin e shiut për dy orë në vend të probabilitetit të shiut "
+"(Vetëm për Holanden dhe Belgjiken në dispozicion)."
+
+msgid "Show wind"
+msgstr "Trego eren"
+
+msgid "State/province"
+msgstr "Qyteti/Provinica"
+
+msgid "Wind speed unit"
+msgstr "Vlera e shpejtësis së erës"
+
+msgid "km/h"
+msgstr "km/h"
+
+msgid "m/s"
+msgstr "m/s"
