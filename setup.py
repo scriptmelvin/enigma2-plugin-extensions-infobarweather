@@ -4,7 +4,7 @@ import setup_translate
 
 pkg='Extensions.InfoBarWeather'
 setup(name='enigma2-plugin-extensions-infobarweather',
-		version='0.15',
+		version='0.16',
 		author='scriptmelvin',
 		author_email='',
 		package_dir={pkg: 'plugin'},
