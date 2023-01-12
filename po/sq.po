@@ -30,8 +30,11 @@ msgstr "Të dhënat e vendndodhjes nuk mund të analizoheshin"
 msgid "Country"
 msgstr "Shteti"
 
-msgid "Display wind speed as BFT, m/s or km/h."
-msgstr "Shfaq shpejtësinë e erës si BFT, m/s or km/h."
+msgid "Display wind speed as BFT, m/s, km/h or mph."
+msgstr "Shfaq shpejtësinë e erës si BFT, m/s, km/h ose mph."
+
+msgid "Display temperature as °C or °F."
+msgstr "Shfaq temperaturën si °C ose °F."
 
 msgid "Enabled"
 msgstr "Aktivuar"
@@ -112,8 +115,14 @@ msgstr "Qyteti/Provinica"
 msgid "Wind speed unit"
 msgstr "Vlera e shpejtësis së erës"
 
+msgid "Temperature unit"
+msgstr "Vlera e temperaturës"
+
 msgid "km/h"
 msgstr "km/h"
 
 msgid "m/s"
 msgstr "m/s"
+
+msgid "mph"
+msgstr "mph"
