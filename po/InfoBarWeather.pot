@@ -28,6 +28,9 @@ msgstr ""
 msgid "km/h"
 msgstr ""
 
+msgid "mph"
+msgstr ""
+
 msgid "Please configure a location in plugin settings"
 msgstr ""
 
@@ -66,7 +69,13 @@ msgstr ""
 msgid "Wind speed unit"
 msgstr ""
 
-msgid "Display wind speed as BFT, m/s or km/h."
+msgid "Display wind speed as BFT, m/s, km/h or mph."
+msgstr ""
+
+msgid "Temperature unit"
+msgstr ""
+
+msgid "Display temperature as °C or °F."
 msgstr ""
 
 msgid "Show location"
