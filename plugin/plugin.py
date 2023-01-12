@@ -4,7 +4,7 @@
 # https://github.com/scriptmelvin/enigma2-plugin-extensions-infobarweather
 # License: GPL-2.0
 
-VERSION = '0.16'
+VERSION = '0.17'
 
 from . import _, _N, PLUGIN_PATH, PLUGIN_NAME
 from Components.ActionMap import ActionMap
@@ -67,7 +67,8 @@ settings.locationlat = ConfigText()
 settings.locationlon = ConfigText()
 settings.locationname = ConfigText()
 settings.locationname2 = ConfigSelection([_("Press OK")])
-settings.windSpeedUnit = ConfigSelection(choices=[("1", _("BFT")), ("2", _("m/s")), ("3", _("km/h"))], default="1")
+settings.windSpeedUnit = ConfigSelection(choices=[("1", _("BFT")), ("2", _("m/s")), ("3", _("km/h")), ("4", _("mph"))], default="1")
+settings.temperatureUnit = ConfigSelection(choices=[("1", _("°C")), ("2", _("°F"))], default="1")
 settings.showregio = ConfigYesNo(True)
 settings.showtime = ConfigYesNo(True)
 settings.showsunriseset = ConfigYesNo(True)
@@ -135,7 +136,7 @@ class InfoBarWeather(Screen, InfoBarExtra):
 
 	def __init__(self, session):
 		windSpeedUnit = int(settings.windSpeedUnit.value)
-		self.units["windspeedms"] = " " + _("km/h") if windSpeedUnit == 3 else " " + _("m/s")
+		self.units["windspeedms"] = " " + _("km/h") if windSpeedUnit == 3 else (" " + _("mph") if windSpeedUnit == 4 else " " + _("m/s"))
 		secondInfoBarBackgroundColor = "#ff000000"
 		primarySkin = config.skin.primary_skin.value.split("/")[0]
 		if primarySkin == "PLi-FullNightHD":
@@ -338,15 +339,19 @@ class InfoBarWeather(Screen, InfoBarExtra):
 		h = j['days'][0]['hours']
 		d = h[0]
 
-		self.beaufort    = d['beaufort']
-		self.windspeedms = d['windspeedms']
+		self.beaufort        = d['beaufort']
+		self.windspeedms     = d['windspeedms']
+		self.temperature     = d['temperature']
+		self.feeltemperature = d['feeltemperature']
 
+		windSpeedUnit   = int(settings.windSpeedUnit.value)
+		temperatureUnit = int(settings.temperatureUnit.value)
 		x = {}
 		x['regio']           = settings.locationname.value
-		x['temperature']     = str(d['temperature'])
-		x['feeltemperature'] = str(d['feeltemperature'])
+		x['temperature']     = str(round(d['temperature'] * 1.8 + 32, 1)) if temperatureUnit == 2 else str(d['temperature'])
+		x['feeltemperature'] = str(round(d['feeltemperature'] * 1.8 + 32, 1)) if temperatureUnit == 2 else str(d['feeltemperature'])
 		x['beaufort']        = str(d['beaufort'])
-		x['windspeedms']     = str(int(round(d['windspeedms']))) if int(settings.windSpeedUnit.value) == 2 else str(int(round(d['windspeedms'] * 3.6)))
+		x['windspeedms']     = str(int(round(d['windspeedms']))) if windSpeedUnit == 2 else (str(int(round(d['windspeedms'] * 3.6))) if windSpeedUnit == 3 else str(int(round(d['windspeedms'] * 2.236936))))
 		x['humidity']        = str(d['humidity'])
 		x['precipitation']   = str(d['precipitation'])
 
@@ -441,14 +446,25 @@ class InfoBarWeather(Screen, InfoBarExtra):
 			else:
 				self['beaufort'].setText('')
 		else:
-			self.units["windspeedms"] = " " + _("km/h") if windSpeedUnit == 3 else " " + _("m/s")
+			self.units["windspeedms"] = " " + _("km/h") if windSpeedUnit == 3 else (" " + _("mph") if windSpeedUnit == 4 else " " + _("m/s"))
 			self["beaufort"].hide()
 			self["windspeedms"].show()
 			if hasattr(self, "windspeedms"):
-				windspeed = str(int(round(self.windspeedms))) if int(settings.windSpeedUnit.value) == 2 else str(int(round(self.windspeedms * 3.6)))
+				windspeed = str(int(round(self.windspeedms))) if windSpeedUnit == 2 else (str(int(round(self.windspeedms * 3.6))) if windSpeedUnit == 3 else str(int(round(self.windspeedms * 2.236936))))
 				self['windspeedms'].setText(windspeed + self.units["windspeedms"])
 			else:
 				self['windspeedms'].setText('')
+		temperatureUnit = int(settings.temperatureUnit.value)
+		if hasattr(self, "temperature"):
+			temperature = str(round(self.temperature * 1.8 + 32, 1)) if temperatureUnit == 2 else str(self.temperature)
+			self['temperature'].setText(temperature + self.units["temperature"])
+		else:
+			self['temperature'].setText('')
+		if hasattr(self, "feeltemperature"):
+			feeltemperature = str(round(self.feeltemperature * 1.8 + 32, 1)) if temperatureUnit == 2 else str(self.feeltemperature)
+			self['feeltemperature'].setText(feeltemperature + self.units["feeltemperature"])
+		else:
+			self['feeltemperature'].setText('')
 
 	def checkIfStale(self):
 		locationid = settings.locationid.value
@@ -741,7 +757,8 @@ class SetupScreen(Screen, ConfigListScreen):
 		if settings.enabled.value:
 			cfgList.extend([
 				getConfigListEntry(_('Location'), settings.locationname2, _("Press OK to open location search.")),
-				getConfigListEntry(_('Wind speed unit'), settings.windSpeedUnit, _("Display wind speed as BFT, m/s or km/h.")),
+				getConfigListEntry(_('Wind speed unit'), settings.windSpeedUnit, _("Display wind speed as BFT, m/s, km/h or mph.")),
+				getConfigListEntry(_('Temperature unit'), settings.temperatureUnit, _("Display temperature as °C or °F.")),
 				getConfigListEntry(_('Show location'), settings.showregio),
 				getConfigListEntry(_('Show last update time'), settings.showtime, _("Show last update time by weather service.")),
 				getConfigListEntry(_('Show sunrise/sunset'), settings.showsunriseset),
