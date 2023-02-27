@@ -126,3 +126,42 @@ msgstr "m/s"
 
 msgid "mph"
 msgstr "mph"
+
+msgid "mm"
+msgstr "mm"
+
+msgid "In infobar"
+msgstr "Në Infobar"
+
+msgid "Above infobar"
+msgstr "Mbi Infobar"
+
+msgid "Top of screen"
+msgstr "Në krye të ekranit"
+
+msgid "Lat"
+msgstr "Gjerësia"
+
+msgid "Lon"
+msgstr "Gjatësia"
+
+msgid "Position"
+msgstr "Pozicioni"
+
+msgid "Show min/max temperature"
+msgstr "Trego temperaturen min/maks"
+
+msgid "Show UV index"
+msgstr "Trego indeksin UV"
+
+msgid "UV"
+msgstr "UV"
+
+msgid "Display location as"
+msgstr "Trego lokacionin si"
+
+msgid "Show sun power"
+msgstr "Trego forca e diellit"
+
+msgid "W/m²"
+msgstr "W/m²"

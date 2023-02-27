@@ -26,6 +26,9 @@ msgstr "км/ч"
 msgid "mph"
 msgstr "м/ч"
 
+msgid "mm"
+msgstr "мм"
+
 msgid "Please configure a location in plugin settings"
 msgstr "Пожалуйста, настройте ваше местоположение в настройках плагина"
 
@@ -123,3 +126,38 @@ msgstr "Не удалось загрузить данные о местопол�
 msgid "Show current weather in infobar"
 msgstr "Показать текущую погоду в инфобаре"
 
+msgid "In infobar"
+msgstr "В инфобаре"
+
+msgid "Above infobar"
+msgstr "Над инфобаре"
+
+msgid "Top of screen"
+msgstr "Верхняя часть экрана"
+
+msgid "Lat"
+msgstr "Широта"
+
+msgid "Lon"
+msgstr "Долгота"
+
+msgid "Position"
+msgstr "Позиция"
+
+msgid "Show min/max temperature"
+msgstr "Показать мин/макс температуру"
+
+msgid "Show UV index"
+msgstr "Показать УФ-индекс"
+
+msgid "UV"
+msgstr "УФ"
+
+msgid "Display location as"
+msgstr "Показать местоположение как"
+
+msgid "Show sun power"
+msgstr "Показать силу солнца"
+
+msgid "W/m²"
+msgstr "В/м²"

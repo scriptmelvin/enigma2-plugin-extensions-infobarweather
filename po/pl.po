@@ -33,6 +33,9 @@ msgstr "km/s"
 msgid "mph"
 msgstr "mph"
 
+msgid "mm"
+msgstr "mm"
+
 msgid "Please configure a location in plugin settings"
 msgstr "Proszę wprowadzić miejscowość w ustawieniach wtyczki"
 
@@ -133,3 +136,39 @@ msgstr "Nie można przetworzyć danych dotyczących miejscowości."
 
 msgid "Show current weather in infobar"
 msgstr "Aktualna pogoda w InfoBar"
+
+msgid "In infobar"
+msgstr "W InfoBar"
+
+msgid "Above infobar"
+msgstr "Powyżej InfoBar"
+
+msgid "Top of screen"
+msgstr "Góra ekranu"
+
+msgid "Lat"
+msgstr "Szerokość"
+
+msgid "Lon"
+msgstr "Długość"
+
+msgid "Position"
+msgstr "Pozycja"
+
+msgid "Show min/max temperature"
+msgstr "Pokaż min/maks temperaturę"
+
+msgid "Show UV index"
+msgstr "Pokaż indeks UV"
+
+msgid "UV"
+msgstr "UV"
+
+msgid "Display location as"
+msgstr "Pokaż miejscowość jako"
+
+msgid "Show sun power"
+msgstr "Pokaż siła słońca"
+
+msgid "W/m²"
+msgstr "W/m²"

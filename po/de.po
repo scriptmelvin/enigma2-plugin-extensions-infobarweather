@@ -31,6 +31,9 @@ msgstr "km/h"
 msgid "mph"
 msgstr "mph"
 
+msgid "mm"
+msgstr "mm"
+
 msgid "Please configure a location in plugin settings"
 msgstr "Bitte konfigurieren Sie einen Ort in den Plugin-Einstellungen"
 
@@ -129,3 +132,39 @@ msgstr "Ortdaten konnten nicht heruntergeladen werden."
 
 msgid "Show current weather in infobar"
 msgstr "Aktuelles Wetter anzeigen in Infobar"
+
+msgid "In infobar"
+msgstr "In Infobar"
+
+msgid "Above infobar"
+msgstr "Über Infobar"
+
+msgid "Top of screen"
+msgstr "Oberen Bildschirmrand"
+
+msgid "Lat"
+msgstr "Breite"
+
+msgid "Lon"
+msgstr "Länge"
+
+msgid "Position"
+msgstr "Position"
+
+msgid "Show min/max temperature"
+msgstr "Min/max Temperatur anzeigen"
+
+msgid "Show UV index"
+msgstr "UV Index anzeigen"
+
+msgid "UV"
+msgstr "UV"
+
+msgid "Display location as"
+msgstr "Ort anzeigen als"
+
+msgid "Show sun power"
+msgstr "Kraft der Sonne anzeigen"
+
+msgid "W/m²"
+msgstr "W/m²"

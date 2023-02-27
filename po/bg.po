@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPLi / InfoBarWeather\n"
+"PO-Revision-Date: 2023-02-05 08:55+0200\n"
+"Last-Translator: gisclub.tv | by Марчелла <marchella_ru@mail.ru>\n"
+"Language-Team: gisclub.tv | by Марчелла <marchella_ru@mail.ru>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SourceCharset: iso-8859-5\n"
+
+msgid "BFT"
+msgstr "С.Б"
+
+msgid "Cancel"
+msgstr "Отмяна"
+
+msgid "Could not download location data."
+msgstr "Не могат да се изтеглят данни за местоположението."
+
+msgid "Could not parse location data."
+msgstr "Данните за местоположението не могат да се анализират."
+
+msgid "Country"
+msgstr "Държава"
+
+msgid "Display temperature as °C or °F."
+msgstr "Показване на температурата в °C или °F."
+
+msgid "Display wind speed as BFT, m/s, km/h or mph."
+msgstr "Показване скоростта на вятъра в Бофорт, м/с, км/ч или мили/ч."
+
+msgid "Enabled"
+msgstr "Активиран"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr ""
+"Въведете (част от) местоположение за търсене,(пример: \"Amsterdam\" или \"Ams"
+"\"):"
+
+msgid "InfoBarWeather %(version)s setup"
+msgstr "InfoBarWeather %(version)s настройки"
+
+msgid "Location"
+msgstr "Местоположение"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Моля настройте вашето местоположение в настройки на плъгина"
+
+msgid "Press OK"
+msgstr "Натиснете OK"
+
+msgid "Press OK to open location search."
+msgstr "Натиснете OK, за търсене на местоположение."
+
+msgid "Save"
+msgstr "Запази"
+
+msgid "Select"
+msgstr "Избор"
+
+msgid "Select location"
+msgstr "Изберете вашето местоположение"
+
+msgid "Show current weather in infobar"
+msgstr "Показване текущото време в информационната лента"
+
+msgid "Show feel temperature"
+msgstr "Показване на температурата на усещане"
+
+msgid "Show humidity"
+msgstr "Показване на влажност"
+
+msgid "Show icon"
+msgstr "Показване на иконки"
+
+msgid "Show last update time"
+msgstr "Показване времето на последната актуализация"
+
+msgid "Show last update time by weather service."
+msgstr ""
+"Показване на времето за последна актуализация от метеорологичната услуга."
+
+msgid "Show location"
+msgstr "Показване на местоположението"
+
+msgid "Show rain"
+msgstr "Показване на дъжд"
+
+msgid "Show rain forecast"
+msgstr "Показване на прогнозата за дъжд"
+
+msgid "Show sunrise/sunset"
+msgstr "Показване на изгрев/залез"
+
+msgid "Show temperature"
+msgstr "Показване на температурата"
+
+msgid ""
+"Show two hour rain forecast instead of rain probability (only available for "
+"The Netherlands and Belgium)."
+msgstr ""
+"Показване на двучасова прогноза за дъжд вместо вероятност за дъжд (налично "
+"само за Холандия и Белгия)."
+
+msgid "Show wind"
+msgstr "Показване скорост на вятъра"
+
+msgid "State/province"
+msgstr "Държава/провинция"
+
+msgid "Temperature unit"
+msgstr "Температурна единица"
+
+msgid "Wind speed unit"
+msgstr "Единица за скорост на вятъра"
+
+msgid "km/h"
+msgstr "км/ч"
+
+msgid "m/s"
+msgstr "м/с"
+
+msgid "mph"
+msgstr "м/ч"
+
+msgid "mm"
+msgstr "мм"
+
+msgid "In infobar"
+msgstr "В информационната лента"
+
+msgid "Above infobar"
+msgstr "Над информационната лента"
+
+msgid "Top of screen"
+msgstr "Горната част на екрана"
+
+msgid "Lat"
+msgstr "Ширина"
+
+msgid "Lon"
+msgstr "Дължина"
+
+msgid "Position"
+msgstr "Позиция"
+
+msgid "Show min/max temperature"
+msgstr "Показване на мин/макс температурата"
+
+msgid "Show UV index"
+msgstr "Показване на УВ индекс"
+
+msgid "UV"
+msgstr "УВ"
+
+msgid "Display location as"
+msgstr "Показване на местоположение като"
+
+msgid "Show sun power"
+msgstr "Показване слънчева на сила"
+
+msgid "W/m²"
+msgstr "В/м²"
