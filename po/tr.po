@@ -1,0 +1,166 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenPLi / InfoBarWeather\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-04-23 13:22+0300\n"
+"Last-Translator: audi06_19 <info@dreamosat-forum.com>\n"
+"Language-Team: audi06_19 <info@dreamosat-forum.com>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-SourceCharset: iso-8859-9\n"
+
+msgid "Press OK"
+msgstr "Tamam'a basın"
+
+msgid "BFT"
+msgstr "BFT"
+
+msgid "m/s"
+msgstr "m/s"
+
+msgid "km/h"
+msgstr "km/h"
+
+msgid "mph"
+msgstr "mph"
+
+msgid "mm"
+msgstr "mm"
+
+msgid "Please configure a location in plugin settings"
+msgstr "Lütfen eklenti ayarlarında bir konum yapılandırın"
+
+msgid "Select location"
+msgstr "Yer seçin"
+
+msgid "Could not parse location data."
+msgstr "Konum verileri ayrıştırılamadı."
+
+msgid "State/province"
+msgstr "Eyalet/il"
+
+msgid "Country"
+msgstr "Ülke"
+
+msgid "Cancel"
+msgstr "İptal"
+
+msgid "Select"
+msgstr "Seç"
+
+# TRANSLATORS: do not translate %(version)s
+#              it will be replaced by the plugins version
+msgid "InfoBarWeather %(version)s setup"
+msgstr "InfoBarWeather %(version)s kurulumu"
+
+msgid "Enabled"
+msgstr "Etkinleştirildi"
+
+msgid "Location"
+msgstr "Konum"
+
+msgid "Press OK to open location search."
+msgstr "Konum aramayı açmak için Tamam'a basın."
+
+msgid "Wind speed unit"
+msgstr "Rüzgar hızı birimi"
+
+msgid "Display wind speed as BFT, m/s, km/h or mph."
+msgstr "Rüzgar hızını BFT, m/s, km/h veya mph olarak göster."
+
+msgid "Temperature unit"
+msgstr "Sıcaklık birimi"
+
+msgid "Display temperature as °C or °F."
+msgstr "Sıcaklığı °C veya °F olarak göster."
+
+msgid "Show location"
+msgstr "Konumu göster"
+
+msgid "Show last update time"
+msgstr "Son güncelleme zamanını göster"
+
+msgid "Show last update time by weather service."
+msgstr "Hava durumuna göre son güncelleme zamanını göster."
+
+msgid "Show sunrise/sunset"
+msgstr "Gün doğumunu/gün batımını göster"
+
+msgid "Show humidity"
+msgstr "Nemi göster"
+
+msgid "Show rain"
+msgstr "Yağmuru göster"
+
+msgid "Show rain forecast"
+msgstr "Yağmur tahminini göster"
+
+msgid ""
+"Show two hour rain forecast instead of rain probability (only available for "
+"The Netherlands and Belgium)."
+msgstr ""
+"Yağmur olasılığı yerine iki saatlik yağmur tahminini göster (yalnızca "
+"Hollanda ve Belçika için mevcuttur)."
+
+msgid "Show wind"
+msgstr "Rüzgarı göster"
+
+msgid "Show icon"
+msgstr "Simgeyi göster"
+
+msgid "Show temperature"
+msgstr "Sıcaklığı göster"
+
+msgid "Show feel temperature"
+msgstr "Hissedilen sıcaklığı göster"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Enter (part of) location to search for (e.g. \"Amsterdam\" or \"Ams\"):"
+msgstr "Aranacak yeri (parçasını) girin (örn. \"Amsterdam\" veya \"Ams\"):"
+
+msgid "Could not download location data."
+msgstr "Konum verileri indirilemedi."
+
+msgid "Show current weather in infobar"
+msgstr "Güncel hava durumunu bilgi çubuğunda göster"
+
+msgid "In infobar"
+msgstr "Bilgi çubuğunda"
+
+msgid "Above infobar"
+msgstr "Bilgi çubuğunun üstünde"
+
+msgid "Top of screen"
+msgstr "Ekranın üstü"
+
+msgid "Lat"
+msgstr "Enlem"
+
+msgid "Lon"
+msgstr "Boylam"
+
+msgid "Position"
+msgstr "Pozisyon"
+
+msgid "Show min/max temperature"
+msgstr "Min./maks. sıcaklığı göster"
+
+msgid "Show UV index"
+msgstr "UV indeksini göster"
+
+msgid "UV"
+msgstr "UV"
+
+msgid "Display location as"
+msgstr "Konumu şu şekilde göster"
+
+msgid "Show sun power"
+msgstr "Güneş gücünü göster"
+
+msgid "W/m²"
+msgstr "W/m²"
